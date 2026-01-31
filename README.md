@@ -1,0 +1,2 @@
+# Blog
+A fun blog
