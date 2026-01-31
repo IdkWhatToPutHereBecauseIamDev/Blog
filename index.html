@@ -3,97 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Meridian Archive | Journal of Culture & Design</title>
+    <title>The Meridian | Journal of Modern Intent</title>
     <style>
-        :root { --ink: #1a1a1a; --dim: #757575; --accent: #bc9c22; --border: #ececec; }
-        body { font-family: "Charter", serif; color: var(--ink); margin: 0; line-height: 1.6; }
-        
-        /* Layout */
-        nav { border-bottom: 1px solid var(--border); padding: 15px 50px; display: flex; justify-content: space-between; position: sticky; top: 0; background: white; z-index: 1000; }
-        .logo { font-weight: 800; font-size: 1.4rem; }
-        .main-wrapper { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+        /* Editorial Styling */
+        :root {
+            --paper: #F9F8F3; /* Bone White */
+            --ink: #1D1D1D;   /* Graphite Black */
+            --accent: #884C42; /* Clay Brick */
+            --border: #E0DDD5;
+        }
+        body {
+            background-color: var(--paper);
+            color: var(--ink);
+            font-family: "Georgia", serif;
+            margin: 0;
+            line-height: 1.7;
+        }
 
-        /* Typography */
-        article { margin-bottom: 100px; animation: fadeIn 0.8s ease-out forwards; }
-        .category { text-transform: uppercase; font-size: 0.75rem; color: var(--accent); font-weight: bold; letter-spacing: 1px; }
-        h2 { font-size: 2.8rem; margin: 10px 0; line-height: 1.1; }
-        .meta { font-size: 0.9rem; color: var(--dim); margin-bottom: 20px; }
-        
-        /* Loading States */
-        #loading-trigger { height: 100px; display: flex; align-items: center; justify-content: center; color: var(--dim); font-style: italic; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .spinner { width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid var(--ink); border-radius: 50%; animate: spin 1s linear infinite; margin-right: 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Navigation & Header */
+        nav {
+            padding: 20px 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--paper);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; }
+        header { text-align: center; padding: 80px 20px; border-bottom: 4px double var(--ink); margin: 0 5%; }
+        header h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin: 0; font-family: sans-serif; font-weight: 900; }
+
+        /* Blog Layout */
+        .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        article { margin-bottom: 80px; border-bottom: 1px solid var(--border); padding-bottom: 40px; }
+        .tag { color: var(--accent); font-weight: bold; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
+        h2 { font-size: 2.5rem; line-height: 1.1; margin: 10px 0; font-family: sans-serif; }
+        .meta { font-style: italic; color: #666; margin-bottom: 20px; font-size: 0.9rem; }
+
+        /* The "Fake" Load Button */
+        .load-more-area { text-align: center; padding: 40px 0; }
+        #load-btn {
+            background: var(--ink);
+            color: var(--paper);
+            border: none;
+            padding: 15px 40px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        #load-btn:hover { opacity: 0.8; }
+        #status-msg { margin-top: 20px; font-style: italic; color: var(--accent); display: none; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo">MERIDIAN.</div>
-    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Archive Series: No. 104</div>
+    <div class="logo">Meridian.</div>
+    <div style="font-family: sans-serif; font-size: 0.7rem; letter-spacing: 1px;">ISSUE NO. 412 — JAN 2026</div>
 </nav>
 
-<div class="main-wrapper">
-    <div id="post-container">
-        <!-- Initial Content -->
+<header>
+    <h1>The Archive.</h1>
+    <p>Documenting the intersection of slow-living and high-technology.</p>
+</header>
+
+<div class="container">
+    <div id="posts">
         <article>
-            <div class="category">Philosophy</div>
-            <h2>The Art of the Slow Morning</h2>
-            <div class="meta">By Julian Vane | Oct 28, 2023</div>
-            <p>In a world obsessed with hyper-productivity, the concept of the "slow morning" has moved from a luxury to a necessity. It’s not about doing less, but about starting with intention...</p>
+            <div class="tag">Philosophy</div>
+            <h2>The Weight of Infinite Choice</h2>
+            <div class="meta">By Julian Vane | Jan 30, 2026</div>
+            <p>We live in an age where every possible answer is available within seconds. Yet, the burden of selecting the right one has created a unique form of paralysis. In this essay, we explore why the curated "limited" web is returning...</p>
+        </article>
+
+        <article>
+            <div class="tag">Design</div>
+            <h2>Architecture of the Invisible</h2>
+            <div class="meta">By Elias Thorne | Jan 15, 2026</div>
+            <p>Modern design often focuses on what is seen. But the most impactful architectural choices are often the ones that dictate how we move, breathe, and think within a space without ever noticing the walls...</p>
         </article>
     </div>
 
-    <!-- The Magic Trigger -->
-    <div id="loading-trigger">
-        <div class="spinner"></div>
-        <span>Retrieving archived entries...</span>
+    <div class="load-more-area">
+        <button id="load-btn">Access Deep Archive (1,000+ Posts)</button>
+        <div id="status-msg">End of Archive.</div>
     </div>
 </div>
 
 <script>
-    const container = document.getElementById('post-container');
-    const trigger = document.getElementById('loading-trigger');
-    let postCount = 0;
-    const maxPosts = 1000;
+    const btn = document.getElementById('load-btn');
+    const msg = document.getElementById('status-msg');
 
-    const titles = ["The Silence of ", "Rethinking ", "The Future of ", "Observations on ", "The Paradox of "];
-    const subjects = ["Modernity", "Urban Spaces", "Digital Ethics", "Minimalist Logic", "Social Noise"];
-    const authors = ["Julian Vane", "Elias Thorne", "Sarah Chen"];
+    btn.addEventListener('click', () => {
+        btn.innerHTML = "Loading...";
+        btn.style.opacity = "0.5";
+        btn.disabled = true;
 
-    function createPost() {
-        if (postCount >= maxPosts) {
-            trigger.innerHTML = "End of Archive.";
-            return;
-        }
-
-        const title = titles[Math.floor(Math.random() * titles.length)] + subjects[Math.floor(Math.random() * subjects.length)];
-        const post = document.createElement('article');
-        
-        post.innerHTML = `
-            <div class="category">ARCHIVE ENTRY #${1000 - postCount}</div>
-            <h2>${title}</h2>
-            <div class="meta">By ${authors[Math.floor(Math.random() * authors.length)]} | Published 2023</div>
-            <p>Systematic observation suggests that the intersection of ${subjects[Math.floor(Math.random() * subjects.length)]} and human behavior creates a feedback loop. We must analyze the structural integrity of our daily routines to ensure we aren't simply moving through the motions of a pre-determined algorithm...</p>
-            <p style="color: #888; font-style: italic;">Continue reading this entry in the full ledger.</p>
-        `;
-        
-        container.appendChild(post);
-        postCount++;
-    }
-
-    // This detects when the "loading-trigger" enters the screen
-    const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            // Add 5 posts every time we hit the bottom
-            for(let i=0; i<5; i++) {
-                setTimeout(createPost, i * 150); // Slight delay for "realistic" loading feel
-            }
-        }
-    }, { threshold: 1.0 });
-
-    observer.observe(trigger);
+        setTimeout(() => {
+            btn.style.display = "none";
+            msg.style.display = "block";
+        }, 1500);
+    });
 </script>
 
 </body>
