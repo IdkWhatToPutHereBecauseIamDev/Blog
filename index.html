@@ -98,16 +98,45 @@
 <script>
     const btn = document.getElementById('load-btn');
     const msg = document.getElementById('status-msg');
+    const postContainer = document.getElementById('posts');
+    let clickCount = 0;
+
+    const fakePosts = [
+        {tag: "History", title: "The Forgotten Grid of 1922", meta: "By Marcus G. | Dec 2025"},
+        {tag: "Tech", title: "Why the Cloud is Leaking", meta: "By Sarah Chen | Nov 2025"},
+        {tag: "Urbanism", title: "The Death of the Cul-de-Sac", meta: "By Julian Vane | Oct 2025"},
+        {tag: "Logic", title: "Calculated Risks in Art", meta: "By Elias Thorne | Sept 2025"}
+    ];
 
     btn.addEventListener('click', () => {
-        btn.innerHTML = "Loading...";
-        btn.style.opacity = "0.5";
+        btn.innerHTML = "Retrieving Server Data...";
         btn.disabled = true;
 
         setTimeout(() => {
-            btn.style.display = "none";
-            msg.style.display = "block";
-        }, 1500);
+            clickCount++;
+
+            if (clickCount < 3) {
+                // Inject fake posts to make the site feel bigger
+                fakePosts.forEach(p => {
+                    const article = document.createElement('article');
+                    article.innerHTML = `
+                        <div class="tag">${p.tag}</div>
+                        <h2>${p.title}</h2>
+                        <div class="meta">${p.meta}</div>
+                        <p>This entry has been retrieved from the legacy database. Full text available for members only...</p>
+                    `;
+                    postContainer.appendChild(article);
+                });
+                
+                btn.innerHTML = "Access Deep Archive (Level " + (clickCount + 1) + ")";
+                btn.disabled = false;
+            } else {
+                // Finally kill the button
+                btn.style.display = "none";
+                msg.style.display = "block";
+                msg.innerHTML = "End of Archive. Access to earlier entries (2014-2024) requires administrative credentials.";
+            }
+        }, 1200);
     });
 </script>
 
