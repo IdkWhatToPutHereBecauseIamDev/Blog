@@ -4,140 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Meridian | Journal of Modern Intent</title>
+    <!-- Premium Google Fonts Pairing -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        /* Editorial Styling */
         :root {
-            --paper: #F9F8F3; /* Bone White */
-            --ink: #1D1D1D;   /* Graphite Black */
-            --accent: #884C42; /* Clay Brick */
+            --paper: #F9F8F3;
+            --ink: #1D1D1D;
+            --accent: #884C42;
             --border: #E0DDD5;
         }
-        body {
-            background-color: var(--paper);
-            color: var(--ink);
-            font-family: "Georgia", serif;
-            margin: 0;
-            line-height: 1.7;
-        }
-
-        /* Navigation & Header */
-        nav {
-            padding: 20px 5%;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--paper);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; }
-        header { text-align: center; padding: 80px 20px; border-bottom: 4px double var(--ink); margin: 0 5%; }
-        header h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin: 0; font-family: sans-serif; font-weight: 900; }
+        * { box-sizing: border-box; }
+        body { background-color: var(--paper); color: var(--ink); font-family: "Inter", sans-serif; margin: 0; line-height: 1.8; }
+        
+        /* Navigation & Branding */
+        nav { padding: 1.5rem 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--paper); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: -0.5px; }
+        header { text-align: center; padding: 100px 20px; border-bottom: 4px double var(--ink); margin: 0 5%; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; font-weight: 900; line-height: 1; }
+        header p { color: #666; margin-top: 1rem; font-style: italic; }
 
         /* Blog Layout */
-        .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
-        article { margin-bottom: 80px; border-bottom: 1px solid var(--border); padding-bottom: 40px; }
-        .tag { color: var(--accent); font-weight: bold; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
-        h2 { font-size: 2.5rem; line-height: 1.1; margin: 10px 0; font-family: sans-serif; }
-        .meta { font-style: italic; color: #666; margin-bottom: 20px; font-size: 0.9rem; }
-
-        /* The "Fake" Load Button */
-        .load-more-area { text-align: center; padding: 40px 0; }
-        #load-btn {
-            background: var(--ink);
-            color: var(--paper);
-            border: none;
-            padding: 15px 40px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-        #load-btn:hover { opacity: 0.8; }
-        #status-msg { margin-top: 20px; font-style: italic; color: var(--accent); display: none; }
+        .container { max-width: 720px; margin: 0 auto; padding: 60px 20px; }
+        article { margin-bottom: 120px; animation: fadeInUp 0.8s ease-out; }
+        .tag { color: var(--accent); font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 15px; display: block; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.4rem; line-height: 1.1; margin: 10px 0 25px 0; font-weight: 700; }
+        .meta { font-size: 0.85rem; color: #777; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        
+        /* Interactive Elements */
+        #sentinel { height: 100px; display: flex; align-items: center; justify-content: center; }
+        .spinner { width: 30px; height: 30px; border: 2px solid #ddd; border-top-color: var(--ink); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <nav>
     <div class="logo">Meridian.</div>
-    <div style="font-family: sans-serif; font-size: 0.7rem; letter-spacing: 1px;">ISSUE NO. 412 — JAN 2026</div>
+    <div style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Archive Series: Daily Journal</div>
 </nav>
 
 <header>
     <h1>The Archive.</h1>
-    <p>Documenting the intersection of slow-living and high-technology.</p>
+    <p>A persistent study of culture, technology, and the spaces between.</p>
 </header>
 
 <div class="container">
-    <div id="posts">
+    <!-- Static First Posts -->
+    <div id="posts-list">
         <article>
-            <div class="tag">Philosophy</div>
+            <span class="tag">Philosophy</span>
             <h2>The Weight of Infinite Choice</h2>
             <div class="meta">By Julian Vane | Jan 30, 2026</div>
-            <p>We live in an age where every possible answer is available within seconds. Yet, the burden of selecting the right one has created a unique form of paralysis. In this essay, we explore why the curated "limited" web is returning...</p>
-        </article>
-
-        <article>
-            <div class="tag">Design</div>
-            <h2>Architecture of the Invisible</h2>
-            <div class="meta">By Elias Thorne | Jan 15, 2026</div>
-            <p>Modern design often focuses on what is seen. But the most impactful architectural choices are often the ones that dictate how we move, breathe, and think within a space without ever noticing the walls...</p>
+            <p>In a world of absolute data accessibility, the most radical act is limitation. We explore why the "unplugged" movement is gaining traction among those who build the very networks we seek to escape...</p>
         </article>
     </div>
 
-    <div class="load-more-area">
-        <button id="load-btn">Access Deep Archive (1,000+ Posts)</button>
-        <div id="status-msg">End of Archive.</div>
+    <!-- Observer Sentinel -->
+    <div id="sentinel">
+        <div class="spinner"></div>
     </div>
 </div>
 
 <script>
-    const btn = document.getElementById('load-btn');
-    const msg = document.getElementById('status-msg');
-    const postContainer = document.getElementById('posts');
-    let clickCount = 0;
+    const list = document.getElementById('posts-list');
+    const sentinel = document.getElementById('sentinel');
+    
+    // Content Generation Arrays
+    const tags = ["Logic", "Urbanism", "Digital Ethics", "Design", "History", "Living"];
+    const authors = ["Julian Vane", "Elias Thorne", "Sarah Chen", "Marcus G."];
+    const prefix = ["The Future of ", "Rethinking ", "A Critique of ", "Notes on ", "The End of "];
+    const subjects = ["Analog Living", "Minimalist Architecture", "Algorithm Culture", "Material Decay", "Modern Solitude"];
 
-    const fakePosts = [
-        {tag: "History", title: "The Forgotten Grid of 1922", meta: "By Marcus G. | Dec 2025"},
-        {tag: "Tech", title: "Why the Cloud is Leaking", meta: "By Sarah Chen | Nov 2025"},
-        {tag: "Urbanism", title: "The Death of the Cul-de-Sac", meta: "By Julian Vane | Oct 2025"},
-        {tag: "Logic", title: "Calculated Risks in Art", meta: "By Elias Thorne | Sept 2025"}
-    ];
+    function generateRandomPost() {
+        const article = document.createElement('article');
+        const tag = tags[Math.floor(Math.random() * tags.length)];
+        const title = prefix[Math.floor(Math.random() * prefix.length)] + subjects[Math.floor(Math.random() * subjects.length)];
+        const author = authors[Math.floor(Math.random() * authors.length)];
+        
+        article.innerHTML = `
+            <span class="tag">${tag}</span>
+            <h2>${title}</h2>
+            <div class="meta">By ${author} | Internal Archive Retrieval</div>
+            <p>In this newly retrieved entry, we examine how the shift toward ${subjects[Math.floor(Math.random() * subjects.length)]} has fundamentally altered the way we interact with physical spaces. The convergence of these two ideas suggests a broader cultural fatigue...</p>
+            <p style="color: #888; font-style: italic;">Continue reading in the full ledger.</p>
+        `;
+        list.appendChild(article);
+    }
 
-    btn.addEventListener('click', () => {
-        btn.innerHTML = "Retrieving Server Data...";
-        btn.disabled = true;
+    // Infinite Scroll Implementation
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            // Simulate server delay for realism
+            setTimeout(() => {
+                for(let i=0; i < 3; i++) generateRandomPost();
+            }, 600);
+        }
+    }, { threshold: 1.0 });
 
-        setTimeout(() => {
-            clickCount++;
-
-            if (clickCount < 3) {
-                // Inject fake posts to make the site feel bigger
-                fakePosts.forEach(p => {
-                    const article = document.createElement('article');
-                    article.innerHTML = `
-                        <div class="tag">${p.tag}</div>
-                        <h2>${p.title}</h2>
-                        <div class="meta">${p.meta}</div>
-                        <p>This entry has been retrieved from the legacy database. Full text available for members only...</p>
-                    `;
-                    postContainer.appendChild(article);
-                });
-                
-                btn.innerHTML = "Access Deep Archive (Level " + (clickCount + 1) + ")";
-                btn.disabled = false;
-            } else {
-                // Finally kill the button
-                btn.style.display = "none";
-                msg.style.display = "block";
-                msg.innerHTML = "End of Archive. Access to earlier entries (2014-2024) requires administrative credentials.";
-            }
-        }, 1200);
-    });
+    observer.observe(sentinel);
 </script>
 
 </body>
