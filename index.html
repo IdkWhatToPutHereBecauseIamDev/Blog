@@ -1,0 +1,46 @@
+<main id="blog-container">
+    <!-- 1,000 posts will be injected here automatically -->
+</main>
+
+<script>
+    const container = document.getElementById('blog-container');
+    const categories = ['CULTURE', 'DESIGN', 'PHILOSOPHY', 'URBANISM', 'TECH', 'LIFESTYLE'];
+    const authors = ['Julian Vane', 'Elias Thorne', 'Sarah Chen', 'Marcus G.'];
+    
+    const titles = [
+        "The Silence of ", "Rethinking ", "The Future of ", "A Critique of ", 
+        "Observations on ", "The Paradox of ", "Notes from ", "The End of "
+    ];
+    
+    const subjects = [
+        "Modern Architecture", "Digital Nomads", "Analog Living", "Artificial Intelligence", 
+        "Urban Planning", "Minimalist Design", "Social Algorithms", "Sustainable Fashion"
+    ];
+
+    // Generate 1000 Posts
+    for (let i = 1000; i > 0; i--) {
+        const date = new Date(2024, 0, 1);
+        date.setDate(date.getDate() - (1000 - i)); // Spreads posts over the last 3 years
+        
+        const category = categories[Math.floor(Math.random() * categories.length)];
+        const title = titles[Math.floor(Math.random() * titles.length)] + subjects[Math.floor(Math.random() * subjects.length)];
+        const author = authors[Math.floor(Math.random() * authors.length)];
+        const readTime = Math.floor(Math.random() * 15) + 5;
+
+        const postHTML = `
+            <article>
+                <div class="category">${category}</div>
+                <h2>${title} (#${i})</h2>
+                <div class="meta">By ${author} | ${readTime} Min Read | ${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                <div class="excerpt">
+                    This entry represents volume ${i} of our ongoing series. As we delve deeper into the implications of ${subjects[Math.floor(Math.random() * subjects.length)]}, 
+                    the necessity for critical discourse becomes increasingly apparent. 
+                </div>
+                <p>The convergence of tradition and modern utility is not a new phenomenon, yet the current landscape offers a unique set of challenges... </p>
+                <span class="read-more">Read the full essay</span>
+            </article>
+        `;
+        
+        container.innerHTML += postHTML;
+    }
+</script>
