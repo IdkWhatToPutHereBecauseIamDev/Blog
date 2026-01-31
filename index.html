@@ -1,46 +1,100 @@
-<main id="blog-container">
-    <!-- 1,000 posts will be injected here automatically -->
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Meridian Archive | Journal of Culture & Design</title>
+    <style>
+        :root { --ink: #1a1a1a; --dim: #757575; --accent: #bc9c22; --border: #ececec; }
+        body { font-family: "Charter", serif; color: var(--ink); margin: 0; line-height: 1.6; }
+        
+        /* Layout */
+        nav { border-bottom: 1px solid var(--border); padding: 15px 50px; display: flex; justify-content: space-between; position: sticky; top: 0; background: white; z-index: 1000; }
+        .logo { font-weight: 800; font-size: 1.4rem; }
+        .main-wrapper { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+
+        /* Typography */
+        article { margin-bottom: 100px; animation: fadeIn 0.8s ease-out forwards; }
+        .category { text-transform: uppercase; font-size: 0.75rem; color: var(--accent); font-weight: bold; letter-spacing: 1px; }
+        h2 { font-size: 2.8rem; margin: 10px 0; line-height: 1.1; }
+        .meta { font-size: 0.9rem; color: var(--dim); margin-bottom: 20px; }
+        
+        /* Loading States */
+        #loading-trigger { height: 100px; display: flex; align-items: center; justify-content: center; color: var(--dim); font-style: italic; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .spinner { width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid var(--ink); border-radius: 50%; animate: spin 1s linear infinite; margin-right: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">MERIDIAN.</div>
+    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Archive Series: No. 104</div>
+</nav>
+
+<div class="main-wrapper">
+    <div id="post-container">
+        <!-- Initial Content -->
+        <article>
+            <div class="category">Philosophy</div>
+            <h2>The Art of the Slow Morning</h2>
+            <div class="meta">By Julian Vane | Oct 28, 2023</div>
+            <p>In a world obsessed with hyper-productivity, the concept of the "slow morning" has moved from a luxury to a necessity. It’s not about doing less, but about starting with intention...</p>
+        </article>
+    </div>
+
+    <!-- The Magic Trigger -->
+    <div id="loading-trigger">
+        <div class="spinner"></div>
+        <span>Retrieving archived entries...</span>
+    </div>
+</div>
 
 <script>
-    const container = document.getElementById('blog-container');
-    const categories = ['CULTURE', 'DESIGN', 'PHILOSOPHY', 'URBANISM', 'TECH', 'LIFESTYLE'];
-    const authors = ['Julian Vane', 'Elias Thorne', 'Sarah Chen', 'Marcus G.'];
-    
-    const titles = [
-        "The Silence of ", "Rethinking ", "The Future of ", "A Critique of ", 
-        "Observations on ", "The Paradox of ", "Notes from ", "The End of "
-    ];
-    
-    const subjects = [
-        "Modern Architecture", "Digital Nomads", "Analog Living", "Artificial Intelligence", 
-        "Urban Planning", "Minimalist Design", "Social Algorithms", "Sustainable Fashion"
-    ];
+    const container = document.getElementById('post-container');
+    const trigger = document.getElementById('loading-trigger');
+    let postCount = 0;
+    const maxPosts = 1000;
 
-    // Generate 1000 Posts
-    for (let i = 1000; i > 0; i--) {
-        const date = new Date(2024, 0, 1);
-        date.setDate(date.getDate() - (1000 - i)); // Spreads posts over the last 3 years
-        
-        const category = categories[Math.floor(Math.random() * categories.length)];
+    const titles = ["The Silence of ", "Rethinking ", "The Future of ", "Observations on ", "The Paradox of "];
+    const subjects = ["Modernity", "Urban Spaces", "Digital Ethics", "Minimalist Logic", "Social Noise"];
+    const authors = ["Julian Vane", "Elias Thorne", "Sarah Chen"];
+
+    function createPost() {
+        if (postCount >= maxPosts) {
+            trigger.innerHTML = "End of Archive.";
+            return;
+        }
+
         const title = titles[Math.floor(Math.random() * titles.length)] + subjects[Math.floor(Math.random() * subjects.length)];
-        const author = authors[Math.floor(Math.random() * authors.length)];
-        const readTime = Math.floor(Math.random() * 15) + 5;
-
-        const postHTML = `
-            <article>
-                <div class="category">${category}</div>
-                <h2>${title} (#${i})</h2>
-                <div class="meta">By ${author} | ${readTime} Min Read | ${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
-                <div class="excerpt">
-                    This entry represents volume ${i} of our ongoing series. As we delve deeper into the implications of ${subjects[Math.floor(Math.random() * subjects.length)]}, 
-                    the necessity for critical discourse becomes increasingly apparent. 
-                </div>
-                <p>The convergence of tradition and modern utility is not a new phenomenon, yet the current landscape offers a unique set of challenges... </p>
-                <span class="read-more">Read the full essay</span>
-            </article>
+        const post = document.createElement('article');
+        
+        post.innerHTML = `
+            <div class="category">ARCHIVE ENTRY #${1000 - postCount}</div>
+            <h2>${title}</h2>
+            <div class="meta">By ${authors[Math.floor(Math.random() * authors.length)]} | Published 2023</div>
+            <p>Systematic observation suggests that the intersection of ${subjects[Math.floor(Math.random() * subjects.length)]} and human behavior creates a feedback loop. We must analyze the structural integrity of our daily routines to ensure we aren't simply moving through the motions of a pre-determined algorithm...</p>
+            <p style="color: #888; font-style: italic;">Continue reading this entry in the full ledger.</p>
         `;
         
-        container.innerHTML += postHTML;
+        container.appendChild(post);
+        postCount++;
     }
+
+    // This detects when the "loading-trigger" enters the screen
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            // Add 5 posts every time we hit the bottom
+            for(let i=0; i<5; i++) {
+                setTimeout(createPost, i * 150); // Slight delay for "realistic" loading feel
+            }
+        }
+    }, { threshold: 1.0 });
+
+    observer.observe(trigger);
 </script>
+
+</body>
+</html>
